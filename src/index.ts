@@ -6,13 +6,16 @@ const morgan = require("morgan");
 const userRoutes = require("./routes/userRoutes");
 // const itemsRoutes = require("./routes/items");
 
+// const monk = require("monk");
+
 const connectdb = async () => {
-    const mongoConnection = await mongoose.connect("mongodb://localhost/nodejs-auth", {
+    const mongoConnection = await mongoose.connect("mongodb://localhost:27017/nodejs-auth", {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     });
     console.log("Database ready!");
 };
+// https://mongodb.github.io/node-mongodb-native/2.0/tutorials/connecting/
 
 connectdb();
 

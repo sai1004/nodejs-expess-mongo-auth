@@ -19,4 +19,15 @@ router.post("/user/login", async (req: any, res: any) => {
 });
 // };
 
+router.post("/user/signup", async (req: any, res: any) => {
+    try {
+        const { name, email, password } = req.body;
+        const authServiceInstance = new AuthService();
+        const { user, token } = await authServiceInstance.SignUp(email, password, name);
+        return res.json({ user, token }).status(200).end();
+    } catch (e) {
+        return res.json(e).status(500).end();
+    }
+});
+
 module.exports = router;
