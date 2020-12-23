@@ -11,17 +11,12 @@ export default class AuthService {
 
     public async login(email: any, password: any): Promise<any> {
         console.log("email::>>", email);
-        const userRecord = await UserModel.findOne({ email: email });
+        const userRecord = await UserModel.findOne({ email });
         if (!userRecord) {
             console.log("User not found!! ");
 
             throw new Error("User not found");
         } else {
-            // const correctPassword = await argon2.verify(userRecord.password, password);
-            // if (!correctPassword) {
-            //     throw new Error("Incorrect password");
-            // }
-
             bcrypt.compare(password, userRecord.password, (err: any, isMatch: any) => {
                 if (err) {
                     throw err;
@@ -43,20 +38,24 @@ export default class AuthService {
     }
 
     public async SignUp(email: any, password: any, name: any): Promise<any> {
-        const salt = randomBytes(32);
-        const passwordHashed = await argon2.hash(password, { salt });
+        let userRecord;
+        bcrypt.hash(password, 10, async function (err: any, hash: any) {
+            // Store hash in your password DB.
+            console.log("hashes", hash);
 
-        const userRecord = await UserModel.create({
-            password: passwordHashed,
-            email,
-            salt: salt.toString("hex"),
-            name,
+            userRecord = await UserModel.create({
+                password: hash,
+                email,
+                salt: "hex",
+                name,
+            });
         });
+
         const token = this.generateJWT(userRecord);
         return {
             user: {
-                email: userRecord.email,
-                name: userRecord.name,
+                email: "jhjk",
+                name: "hg",
             },
             token,
         };
