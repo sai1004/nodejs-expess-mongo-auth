@@ -5,9 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/user/signin", async (req: any, res: any) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    console.log("USer-->.", email, password);
+    const { email, password } = req.body;
     try {
         const authServiceInstance = new AuthService();
         const { user, token } = await authServiceInstance.login(email, password);
