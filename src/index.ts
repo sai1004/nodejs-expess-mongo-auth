@@ -8,6 +8,8 @@ const userRoutes = require("./routes/userRoutes");
 
 // const monk = require("monk");
 
+const port = 3000;
+
 const connectdb = async () => {
     const mongoConnection = await mongoose.connect("mongodb://localhost:27017/nodejs-auth", {
         useUnifiedTopology: true,
@@ -30,11 +32,15 @@ app.get("/", (req: any, res: any) => {
     });
 });
 
-app.listen(3000, async (err: any) => {
+app.listen(port, async (err: any) => {
     if (err) {
         throw err;
     }
-    console.log("server is listening on port ", 3000);
+    console.log(`
+            +++++++++++++++++++++++++++++++++++
+            server is listening on port ${port} 
+            +++++++++++++++++++++++++++++++++++
+        `);
 });
 
 // module.exports = app;

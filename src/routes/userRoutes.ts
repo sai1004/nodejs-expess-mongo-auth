@@ -1,11 +1,10 @@
-import AuthService from "../services/auth";
+import AuthService from "../services/AuthService";
 const express = require("express");
 // import items from "./itemsRoutes";
 
 const router = express.Router();
 
-// export default (app: any) => {
-router.post("/user/login", async (req: any, res: any) => {
+router.post("/user/signin", async (req: any, res: any) => {
     const email = req.body.email;
     const password = req.body.password;
     console.log("USer-->.", email, password);
@@ -17,7 +16,6 @@ router.post("/user/login", async (req: any, res: any) => {
         return res.json(e).status(500).end();
     }
 });
-// };
 
 router.post("/user/signup", async (req: any, res: any) => {
     try {
